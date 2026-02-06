@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Tami 🌷</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap');
+
+        :root {
+            --bg-color: #0f0f13;
+            --paper-color: #1a1a24;
+            --text-color: #e0e0e0;
+            --accent-color: #d4a5b8; /* Rosado suave */
+            --accent-green: #9fb9a5; /* Verde tallo */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(212, 165, 184, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(159, 185, 165, 0.05) 0%, transparent 50%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            box-sizing: border-box;
+            perspective: 1000px;
+        }
+
+        .card {
+            background-color: var(--paper-color);
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+            text-align: center;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Decoración Floral (CSS puro + Emojis) */
+        .flower {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 5px rgba(212, 165, 184, 0.3));
+        }
+        .tl { top: -15px; left: -10px; transform: rotate(-20deg); }
+        .tr { top: -15px; right: -10px; transform: rotate(20deg); }
+        .bl { bottom: -10px; left: -10px; transform: rotate(-10deg); }
+        .br { bottom: -10px; right: -10px; transform: rotate(10deg); }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .btn-group {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            height: 60px; /* Espacio reservado para los botones */
+        }
+
+        button {
+            padding: 12px 30px;
+            border-radius: 50px;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            outline: none;
+            user-select: none; /* Evita que seleccionen el texto al clickear rápido */
+        }
+
+        #btnYes {
+            background: linear-gradient(135deg, #d4a5b8, #b58399);
+            color: #1a1a24;
+            box-shadow: 0 4px 15px rgba(212, 165, 184, 0.4);
+            z-index: 10;
+        }
+
+        #btnYes:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(212, 165, 184, 0.6);
+        }
+
+        #btnNo {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #888;
+            position: absolute; /* Para poder moverlo libremente */
+        }
+
+        /* Pantalla final oculta */
+        #success-screen {
+            display: none;
+            text-align: center;
+        }
+        
+        #main-content {
+            transition: opacity 0.5s ease;
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Música */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 100;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Control de Música -->
+    <!-- Recuerda poner tu archivo 'cancion.mp3' en la misma carpeta -->
+    <audio id="bgMusic" loop>
+        <source src="cancion.mp3" type="audio/mpeg">
+    </audio>
+    <div class="music-control" onclick="toggleMusic()">🎵</div>
+
+    <div class="container">
+        <div class="card">
+            <!-- Decoración -->
+            <div class="flower tl">🌷</div>
+            <div class="flower tr">🪷</div>
+            <div class="flower bl">🪷</div>
+            <div class="flower br">🌷</div>
+
+            <!-- Contenido Principal -->
+            <div id="main-content">
+                <h1>Tami...</h1>
+                
+                <p>
+                    Sé que dije que no usaría palabras bonitas, pero necesitaba escribirte esto de una forma distinta.
+                </p>
+                <p>
+                    He estado pensando en todo lo que dijiste sobre <span class="highlight">los hechos y la seguridad</span>. Tienes razón. No quiero volver para repetir o recaer en lo mismo. Quiero volver para seguir construyendo algo donde tú tengas paz y seguridad.
+                </p>
+                <p>
+                    No te prometo ser perfecto mañana, pero sí te prometo que <span class="highlight">mis ganas de cuidarte son más grandes que cualquier otra cosa</span>. como te dije no dejare de lado las cosas que te propuse y mejorare en las cosas que hice mal, tami mi gran amor yo te amo y de todo corazon deseo estar siempre a tu lado y que tu estes en el mio.
+                </p>
+                <p style="text-align: center; margin-top: 30px; font-weight: 500;">
+                    ¿Quieres volver, esta vez haciéndolo aun mejor?
+                </p>
+
+                <div class="btn-group">
+                    <button id="btnYes" onclick="acceptProposal()">Sí, intentémoslo 🤍</button>
+                    <button id="btnNo" onmouseover="moveButton()" onclick="moveButton()">No</button>
+                </div>
+            </div>
+
+            <!-- Pantalla de Éxito -->
+            <div id="success-screen">
+                <h1>¡Sabía que sí! 🤍</h1>
+                <p style="text-align: center;">
+                    Gracias por la oportunidad, Mi amor. <br>
+                    Mejorare para ser el hombre al cual defendias con tus palabras.<br><br>
+                    ✨ TE AMO DEMASIADO MI RAYITO DE SOL ✨
+                </p>
+                <div style="font-size: 3rem; margin-top: 20px;">🌷💍✨</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const btnNo = document.getElementById('btnNo');
+        const music = document.getElementById('bgMusic');
+        let musicPlaying = false;
+
+        // Función para mover el botón "No"
+        function moveButton() {
+            // Obtener dimensiones de la tarjeta para no salirse mucho
+            const card = document.querySelector('.card');
+            const cardRect = card.getBoundingClientRect();
+            
+            // Calcular nueva posición aleatoria
+            // Limitamos el movimiento para que se quede "cerca" pero sea inalcanzable
+            const newX = (Math.random() - 0.5) * 250; 
+            const newY = (Math.random() - 0.5) * 200;
+
+            btnNo.style.transform = `translate(${newX}px, ${newY}px)`;
+            
+            // Hacerlo un poco más transparente cada vez que se mueve para que desaparezca
+            let currentOpacity = parseFloat(window.getComputedStyle(btnNo).opacity);
+            if (currentOpacity > 0) {
+                btnNo.style.opacity = currentOpacity - 0.1;
+            }
+        }
+
+        // Función al aceptar
+        function acceptProposal() {
+            const content = document.getElementById('main-content');
+            const success = document.getElementById('success-screen');
+            
+            content.classList.add('hidden');
+            
+            // Pequeña pausa para la transición
+            setTimeout(() => {
+                content.style.display = 'none';
+                success.style.display = 'block';
+                lanzarConfetti();
+            }, 500);
+        }
+
+        // Música
+        function toggleMusic() {
+            if (musicPlaying) {
+                music.pause();
+                musicPlaying = false;
+            } else {
+                music.play().catch(e => console.log("Interacción necesaria"));
+                musicPlaying = true;
+            }
+        }
+
+        // Efecto simple de celebración (simulado con emojis cayendo)
+        function lanzarConfetti() {
+            setInterval(() => {
+                const el = document.createElement('div');
+                el.innerText = Math.random() > 0.5 ? '🌷' : '🤍';
+                el.style.position = 'fixed';
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.top = '-10vh';
+                el.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                el.style.transition = 'top 3s ease-in, opacity 3s ease-out';
+                el.style.opacity = '1';
+                el.style.zIndex = '9999';
+                document.body.appendChild(el);
+
+                setTimeout(() => {
+                    el.style.top = '110vh';
+                    el.style.opacity = '0';
+                }, 100);
+
+                setTimeout(() => {
+                    el.remove();
+                }, 3100);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
